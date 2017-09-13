@@ -1,0 +1,31 @@
+<div class="card">
+  <h4 class="card-header">{{pagetitle}}</h4>
+  <div class="card-body">
+    <div class="row">          
+             <div class=" col-sm-4 col-md-4">
+              <div class="card">
+                <img class="card-img-top" src="{{user.avatar_url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{user.name}}</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">{{user.login}}</h6>
+                  <p class="card-text">{{user.bio}}</p>
+                </div>
+              </div>
+             </div>
+             <div class="col-sm-8 col-md-8 ">
+               <div class="row">
+                <div class="col-md-5 col-sm-5" *ngFor="let r of repos ">
+                  <div class="card">                     
+                    <div class="card-body">                
+                        <h4 class="card-title">{{r.name}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Stars {{r.stargazers_count | number}} &nbsp; Watchers {{r.watchers | number}} &nbsp; Fork {{r.forks_count | number}}</h6>
+                        <p class="card-text">{{r.description}}<br> 
+                        </p>                       
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+             </div>
+</div>
+</div>

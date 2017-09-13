@@ -1,0 +1,45 @@
+
+<div class="card">
+  <h4 class="card-header">{{pagetitle}}</h4>
+  <div class="card-body">
+        <div class="details-container">  
+          <div class="row" >          
+             <div class=" col-sm-4 col-md-4">              
+              <div class="sidebar-panel float-left">
+                  <div class="search-area">
+                    <div class="form">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Feed Me Keyword" [(ngModel)] ="key">
+                        </div>    
+                        <button class="btn btn-default" (click)="getSearchData();">Get Results</button>
+                    </div> 
+                  </div>
+              </div>
+            </div> 
+            <div class="col-sm-8 col-md-8 ">
+              <h4 class="total-count">{{repo_count | number}} Repositories found</h4>
+              <hr>              
+              <ul class="list-unstyled">
+                <li class="searched-list"  *ngFor="let item of searchedData | paginate: { itemsPerPage: 9, currentPage: p } ">
+                  <div class="stars-forks-lang float-right">                    
+                    <p class="badge badge-secondary">
+                      <i class="fa fa-star" aria-hidden="true"></i> Star {{item.stargazers_count | number}}
+                    </p>&nbsp;
+                    <p class="badge badge-secondary">
+                      <i class="fa fa-random" aria-hidden="true"></i> Fork {{item.forks_count | number}}
+                    </p>&nbsp;
+                    <p class="badge badge-secondary">
+                      <i class="fa fa-eye" aria-hidden="true"></i> Watchers {{item.watchers | number}}
+                    </p>
+                  </div>
+                  <a routerLink="/users/{{item.owner.login}}"><h3 class="text-primary">{{item.full_name}}</h3></a>
+                  <p class="repo-desc">{{item.description}}</p>
+                  <p class="last-updated">Updated On {{item.updated_at | date}}</p>
+                </li>
+              </ul>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>

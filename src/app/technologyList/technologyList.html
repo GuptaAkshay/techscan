@@ -1,0 +1,28 @@
+<div class="card">
+  <h4 class="card-header">{{pagetitle}}</h4>
+  <div class="card-body">
+<div class="row">
+    <div class="col-md-6 col-sm-6" *ngFor="let d of dataArr ">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <img class="card-img-top img-fluid" src="{{d.image}}"/>
+                </div>
+                <div class="col-md-7 col-sm-6">
+                    <div class="card-body">                
+                        <h4 class="card-title">{{d.name}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">{{d.value.total_count | number}} Repositories</h6>
+                        <p class="card-text">Top Repos <br> 
+                            <template ngFor let-item [ngForOf]="d.value.items | slice:0:4">
+                                <span class="badge badge-success">{{item.full_name}}</span>
+                            </template>
+                        </p>
+                        <button href="#" class="btn btn-primary" (click)="sendToRepos(d)">View Repositories</button>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
