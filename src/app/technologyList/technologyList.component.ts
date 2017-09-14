@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class TechListComponent {
 
-    language_list = ["javascript", "java", "python", "ruby", "php", "csharp", "c++", "c", "html", "go" ];
+    language_list = ["javascript", "java", "python", "ruby", "php", "go" ];
     dataArr : any[];
     pagetitle:string
         
@@ -33,7 +33,8 @@ export class TechListComponent {
                             "value":res,
                             "image": "assets/"+element+".png"
                         };
-                        //localStorage.setItem(data.name, JSON.stringify(data))
+                        localStorage.setItem(data.name, JSON.stringify(data))
+                        console.log("Data Stored Local Storage")
                         this.dataArr.push(data);
                         //console.log("DATA=>"+this.dataArr);
             }); 
@@ -58,6 +59,6 @@ export class TechListComponent {
     sendToRepos(item :any){
         //console.log(item);        
         let lang = item.name.replace(/\b\w/g, l => l.toLowerCase())
-        this.router.navigate(['/repo', lang]);
+        this.router.navigate(['/repo', item.name]);
     }
 }
