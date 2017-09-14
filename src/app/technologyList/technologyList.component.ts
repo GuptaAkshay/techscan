@@ -59,6 +59,6 @@ export class TechListComponent {
     sendToRepos(item :any){
         //console.log(item);        
         let lang = item.name.replace(/\b\w/g, l => l.toLowerCase())
-        this.router.navigate(['/repo', item.name]);
+        this.router.navigate(['/repo', lang]);
     }
 }

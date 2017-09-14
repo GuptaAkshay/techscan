@@ -11,7 +11,7 @@ import { ApiDataService } from "../services/apidata.service";
 })
 export class RepoListComponent {
 
-
+  language_list = ["javascript", "java", "python", "ruby", "php", "go" ];
   searchedData:any[]; 
   repo_count:string;
   queryParam:string;
@@ -33,24 +33,41 @@ export class RepoListComponent {
   }
   getData(){
     this.searchedData = [];
-    // let resource = "search/repositories";    
-    // let qry = "language:" + this.key + "&page=1&per_page=100";
-    // this.apidata.getAllRepositoryForTechnology(resource, qry)
-    // //this.apidata.getLocalJsonData(this.key)
-    //   .subscribe((res) =>{
-    //     this.zone.run(() => {                                   
-    //               this.repo_count =res.total_count     
-    //               this.searchedData=res.items;                   
-    //               this.key = this.queryParam;               
-    //               //console.log(this.searchedData)
-    //     })         
-    //   });
-    this.key = this.key.replace(/\b\w/g, l => l.toUpperCase())
-    let data = JSON.parse(localStorage.getItem(this.key)).value;
-    this.repo_count = data.total_count;
-    this.searchedData = data.items;
+    if(this.language_list.indexOf(this.key) > -1 ){
+      let key = this.key.replace(/\b\w/g, l => l.toUpperCase())
+      let data = JSON.parse(localStorage.getItem(key)).value;
+      this.repo_count = data.total_count;
+      this.searchedData = data.items;
+  
+      console.log(this.key);
+    }
+    else{
+      let resource = "search/repositories";    
+      let qry = "language:" + this.key + "&page=1&per_page=100";
+      this.apidata.getAllRepositoryForTechnology(resource, qry).subscribe(
+      //this.apidata.getLocalJsonData(this.key).subscribe(
+        res =>{        
+          this.zone.run(() => {                                   
+                    this.repo_count =res.total_count     
+                    this.searchedData=res.items;                   
+                    this.key = this.queryParam;               
+                    //console.log(this.searchedData)
+          })         
+        },
+        err =>{
+          let code = err.status;
+          let statusText = err.statusText;
 
-    console.log(this.searchedData);
+          console.log(code+","+statusText);
+        }
+      );
+    }
+    // this.key = this.key.replace(/\b\w/g, l => l.toUpperCase())
+    // let data = JSON.parse(localStorage.getItem(this.key)).value;
+    // this.repo_count = data.total_count;
+    // this.searchedData = data.items;
+
+    // console.log(this.searchedData);
   }
   
   getSearchData(){
